@@ -1,3 +1,5 @@
+/* Declares DE_Class struct. Implemented in the DE_Class.cpp. */
+
 #pragma once
 #include <vector>
 

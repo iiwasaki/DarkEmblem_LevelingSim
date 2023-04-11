@@ -1,3 +1,7 @@
+/* Initializes a 'class' with the proper stat blocks.
+   char* for name instead of std::string to keep compatibility with imgui's text features intact.
+*/
+
 #include "DE_Class.h"
 
 namespace LevelSim

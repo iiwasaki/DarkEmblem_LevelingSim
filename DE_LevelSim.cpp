@@ -1,3 +1,5 @@
+/* Implementation of everything in DE_LevelSim.h. See the header file for an overview of what each function does. */
+
 #include "imgui.h"
 #include <stdlib.h>
 #include <time.h>
@@ -24,11 +26,10 @@ namespace LevelSim
 	}
 	void RenderUI(std::vector<LevelSim::DE_Class> classes)
 	{
+		/* Define these as static so they are not reallocated when this is called in every iteration of the main event loop for ImGui. 
+		 */
 		
-		
-		static int roll = 0;
-		static int adv_roll = 0;
-		static int total = 0;
+		// Base stats to display on the menu. Can be changed using the sliders, initialized to display acolyte at start.
 		static int HP = classes[0].HP;
 		static int MP = classes[0].MP;
 		static int mgt = classes[0].mgt;
@@ -44,10 +45,7 @@ namespace LevelSim
 		static int g_def = classes[0].g_def;
 		static int g_res = classes[0].g_res;
 
-		static bool advantage = false;
-		static int max_level = 10;
-		static int sim_count = 100;
-
+		// Must be double because it will be an average across all simulations 
 		static double end_HP = 0.0;
 		static double end_MP = 0.0;
 		static double end_mgt = 0.0;
@@ -56,6 +54,7 @@ namespace LevelSim
 		static double end_def = 0.0;
 		static double end_res = 0.0;
 
+		// Keep track of high/low stats per simulation
 		static int hi_HP = 0;
 		static int hi_MP = 0;
 		static int hi_mgt = 0;
@@ -72,8 +71,17 @@ namespace LevelSim
 		static int lo_def = 0;
 		static int lo_res = 0;
 
+		// Variables necessary to actually run the simulation. Roll/Adv_roll probably do not need to be static, 
+		// but since we're allocating it so many times it's probably easier this way.
+		static int roll = 0;
+		static int adv_roll = 0;
+		static bool advantage = false;
+		static int max_level = 10;
+		static int sim_count = 100;
+
 		ImGui::Begin("Leveler");
 
+		// Keeps track of which class in the list is selected
 		static int selected = 0;
 
 		ImGui::SeparatorText("Pick a Class: ");
@@ -169,8 +177,8 @@ namespace LevelSim
 		ImGui::SeparatorText("Configure Leveling Options");
 		
 		ImGui::Checkbox("Use \"Advantage\" Roll?", &advantage);
-		ImGui::InputInt("Desired Ending Level", &max_level);
-		ImGui::InputInt("Number of Simulations", &sim_count);
+		ImGui::InputInt("Desired Ending Level (Max 100)", &max_level);
+		ImGui::InputInt("Number of Simulations (Max 10,000,000) ", &sim_count);
 
 		ImGui::Separator();
 

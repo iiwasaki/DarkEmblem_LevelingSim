@@ -1,3 +1,7 @@
+/* Leveling simulator for class balanced designed for Project Dark Emblem 
+ * Based off of ImGui's starter example project and edited where appropriate.  
+*/
+
 // Dear ImGui: standalone example application for DirectX 10
 // If you are new to Dear ImGui, read documentation from the docs/ folder + read the top of imgui.cpp.
 // Read online: https://github.com/ocornut/imgui/tree/master/docs
@@ -30,9 +34,9 @@ int main(int, char**)
 {
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
-    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"ImGui Example", NULL };
+    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"DE_Leveler", NULL };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX10 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Dark Emblem Leveling Simulator", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -106,17 +110,58 @@ int main(int, char**)
     std::vector<int> acolyte_stats =   { 18, 18,  3,  4,  2,  4,  4 };
     std::vector<int> acolyte_growths = {  3,  5, 10, 11, 10, 12, 15 };
 
-    std::vector<int> cleric_stats =   { 16, 20,  5,  3,  4,  2,  6 };
+    std::vector<int> cleric_stats =    { 16, 20,  5,  3,  4,  2,  6 };
     std::vector<int> cleric_growths =  {  7,  6, 11, 12, 11, 17,  9 };
 
+    std::vector<int> mage_stats =      { 16, 19,  4,  4,  4,  2,  5 };
+    std::vector<int> mage_growths =    {  7,  4,  9,  9,  9, 16, 13 };
+
+    std::vector<int> scholar_stats =   { 14, 25,  2,  3,  3,  2,  8 };
+    std::vector<int> scholar_growths = {  9,  2, 11, 14, 11, 17,  9 };
+
+    std::vector<int> hunter_stats =    { 16, 17,  3,  6,  5,  3,  1 };
+    std::vector<int> hunter_growths =  {  6,  9, 12,  8, 10, 15, 14 };
+
+    std::vector<int> scout_stats =     { 16, 15,  5,  8,  6,  4,  0 };
+    std::vector<int> scout_growths =   {  5, 10, 10,  7,  9, 14, 15 };
+
+    std::vector<int> thief_stats =     { 16, 15,  3,  6,  8,  2,  0 };
+    std::vector<int> thief_growths =   {  4, 12,  9,  7,  7, 15, 17 };
+
+    std::vector<int> monk_stats =      { 16, 20,  4,  6,  7,  4,  3 };
+    std::vector<int> monk_growths =    {  6,  8, 10, 10,  6,  9, 13 };
+
+    std::vector<int> knight_stats =    { 18, 15,  8,  4,  2,  8,  0 };
+    std::vector<int> knight_growths =  {  0, 13,  8, 10, 12,  7, 14 };
+
+    std::vector<int> soldier_stats =   { 17, 15,  6,  8,  6,  5,  1 };
+    std::vector<int> soldier_growths = {  5, 12, 10, 10, 10, 11, 15 };
+
+    std::vector<int> swords_stats =    { 16, 16,  4,  9,  9,  4,  1 };
+    std::vector<int> swords_growths =  {  5, 12, 10,  6,  6, 15, 16 };
+
+    std::vector<int> fighter_stats =   { 20, 15,  8,  5,  5,  4,  0 };
+    std::vector<int> fighter_growths = {  0, 14,  6,  8, 11, 11, 19 };
+
+    std::vector<int> barb_stats =      { 22, 15,  8,  3,  8,  3,  2 };
+    std::vector<int> barb_growths =    {  0, 14,  6,  9, 10, 12, 14 };
+
     /* Declare and initialize structs for each class */
-    std::vector<LevelSim::DE_Class> all_classes(2);
+    std::vector<LevelSim::DE_Class> all_classes(13);
 
     LevelSim::DE_Class_Init(all_classes[0], "Acolyte", acolyte_stats, acolyte_growths);
     LevelSim::DE_Class_Init(all_classes[1], "Cleric", cleric_stats, cleric_growths);
-
-    
-
+    LevelSim::DE_Class_Init(all_classes[2], "Mage", mage_stats, mage_growths);
+    LevelSim::DE_Class_Init(all_classes[3], "Scholar", scholar_stats, scholar_growths);
+    LevelSim::DE_Class_Init(all_classes[4], "Hunter", hunter_stats, hunter_growths);
+    LevelSim::DE_Class_Init(all_classes[5], "Scout", scout_stats, scout_growths);
+    LevelSim::DE_Class_Init(all_classes[6], "Thief", thief_stats, thief_growths);
+    LevelSim::DE_Class_Init(all_classes[7], "Monk", monk_stats, monk_growths);
+    LevelSim::DE_Class_Init(all_classes[8], "Knight", knight_stats, knight_growths);
+    LevelSim::DE_Class_Init(all_classes[9], "Soldier", soldier_stats, soldier_growths);
+    LevelSim::DE_Class_Init(all_classes[10], "Swordsmen", swords_stats, swords_growths);
+    LevelSim::DE_Class_Init(all_classes[11], "Fighter", fighter_stats, fighter_growths);
+    LevelSim::DE_Class_Init(all_classes[12], "Barbarian", barb_stats, barb_growths);
     /* Main imgui loop - do initializations beforehand */
     while (!done)
     {
@@ -142,7 +187,7 @@ int main(int, char**)
         LevelSim::RenderUI(all_classes);
 
         /* Imgui Example, comment out when unneeded*/
-        ImGui::ShowDemoWindow(&show_demo_window);
+       //ImGui::ShowDemoWindow(&show_demo_window);
 
         // Rendering
         ImGui::Render();
